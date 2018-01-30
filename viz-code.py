@@ -10,6 +10,7 @@ import matplotlib.pyplot as plt
 
 feed = pd.read_csv(r'data\feed.csv', encoding= "ISO-8859-1")
 feed['Time'] = pd.to_datetime(feed['Time'], infer_datetime_format = True)
+feed['Time'] = feed['Time'].dt.tz_localize('Etc/GMT+0').dt.tz_convert('Singapore')
 feed['hour'] = feed['Time'].dt.hour
 feed['activity'] = feed['Likes'] + feed['Reactions'] + feed['Shares']
 feed['Time of the day'] = pd.cut(feed['hour'], right = False, bins =[8,20], labels = ['Working hours'])
